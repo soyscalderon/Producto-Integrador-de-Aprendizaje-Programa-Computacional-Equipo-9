@@ -1,0 +1,38 @@
+# Cadena de longitud 2^n con alfabeto {a,b}* y n>0
+input: 'aabb'
+blank: ' '
+start state: q1
+table:
+  q1:
+    'a': {write: 'x', L: q2}
+    'b': {write: 'x', L: q2}
+    
+  q2:
+    ' ': {write: ' ', R: q2}
+    'x': {write: 'y', R: q3}
+    'z': {write: 'z', L: q5}
+  q3:
+    'x': {write: 'x', R: q3}
+    'z': {write: 'z', R: q3}
+    'a': {write: 'z', L: q4}
+    'b': {write: 'z', L: q4}
+  q4:
+    'z': {write: 'z', L: q4}
+    'x': {write: 'x', L: q4}
+    'y': {write: 'y', R: q2}
+  q5:
+    'y': {write: 'y', L: q5}
+    ' ': {write: ' ', R: q6}
+  q6:
+    'y': {write: 'x', R: q6}
+    'z': {write: 'x', R: q6}
+    'a': {write: 'a', L: q7}
+    'b': {write: 'b', L: q7}
+    ' ': {write: ' ', L: q8}
+  q7:
+    'x': {write: 'x', L: q7}
+    ' ': {write: ' ', R: q2}
+  q8:
+    'x': {write: ' ', L: q8}
+    ' ': {write: ' ', R: qf}
+  qf:
